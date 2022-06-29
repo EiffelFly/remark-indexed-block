@@ -16,7 +16,7 @@
     "unist-util-visit": "^4.1.0"
   },
   "scripts": {
-    "ts-node": "NODE_OPTIONS='--loader ts-node/esm' node"
+    "start": "node --experimental-specifier-resolution=node"
   },
   "dependencies": {
     "unified": "^10.1.2"
