@@ -1,0 +1,19 @@
+# Remark indexed block
+
+This lib will annotate every block in the markdown file with site wise unique identifier
+
+## Normal Logic
+
+1. It will use the file's relative file path and uuidv5 to form a unique id. For example, if you have a file's path is `/src/data/blog/hi-i-am-indexed-block`(relative to the root of the project.) It will tokenize this path and generate id.
+2. It will use the first 6 character as the prefix.
+3. The suffix is depend on the order of the section.
+
+```md
+# Header 1
+
+## Sub Header 1
+
+hi, I am a block!
+```
+
+Every unique representation will be a block, take above markdown for example, `Header 1`, `Sub Header 1` and the `hi, I am a block!` are three separated blocks. The suffix will be determined by their order. If the calculated prefix is r43erf the overall index of `Header 1` will be `r43erf-1`

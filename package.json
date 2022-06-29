@@ -1,0 +1,12 @@
+{
+  "name": "remark-indexed-block",
+  "version": "0.0.1",
+  "main": "index.js",
+  "type": "module",
+  "license": "MIT",
+  "devDependencies": {
+    "@types/tape": "^4.13.2",
+    "tape": "^5.5.3",
+    "typescript": "^4.7.4"
+  }
+}
