@@ -17,3 +17,9 @@ hi, I am a block!
 ```
 
 Every unique representation will be a block, take above markdown for example, `Header 1`, `Sub Header 1` and the `hi, I am a block!` are three separated blocks. The suffix will be determined by their order. If the calculated prefix is r43erf the overall index of `Header 1` will be `r43erf-1`
+
+## Worth notice Caveat
+
+- Because remark is a esm module, we have to keep an eye one that:
+  - We use `tsc` to build the package and imply that we are using esm by type config in package.json `type: "module"`
+  - When testing the plugin, we run the script with `node`, but node is running with CommonJS by default, you need to imply that you want to run with esm by this flag `--experimental-specifier-resolution=node`
