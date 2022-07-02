@@ -3,7 +3,9 @@
   "version": "0.0.1",
   "main": "build/index.js",
   "types": "build/index.d.ts",
-  "files": ["build"],
+  "files": [
+    "build"
+  ],
   "type": "module",
   "license": "MIT",
   "devDependencies": {
