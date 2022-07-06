@@ -10,7 +10,18 @@ import {
 } from "mdast";
 import { Plugin } from "unified";
 import { Node } from "unist-util-visit";
-import util from "util";
+
+type IndexedBlock = {
+  type: "IndexedBlock";
+  id: string;
+  children: Content[];
+};
+
+declare module "mdast" {
+  interface BlockContentMap {
+    IndexedBlock: IndexedBlock;
+  }
+}
 
 type Options = {};
 
@@ -18,24 +29,27 @@ const key = "st1the";
 
 export const remarkIndexedBlock: Plugin<[], Root> = () => {
   return (tree) => {
-    const newTree: Content[] = [];
+    const newTree = [];
     for (const child of tree.children) {
       if (child.type !== "heading") {
         const index = tree.children.indexOf(child);
-        const indexedBlockId: Paragraph = {
-          type: "paragraph",
+        const indexedBlock: IndexedBlock = {
+          id: `[#${key}-${index}]`,
+          type: "IndexedBlock",
           children: [
             {
               type: "text",
-              value: `[[#${key}-${index}]]`,
+              value: "hi",
             },
           ],
         };
-        newTree.push(indexedBlockId);
+        newTree.push(indexedBlock);
       }
       newTree.push(child);
     }
     tree.children = newTree;
+
+    console.log(newTree);
 
     return tree;
   };
