@@ -1,12 +1,15 @@
 import fs from "fs";
-import { remark } from "remark";
+import { unified } from "unified";
+import remarkParse from "remark-parse";
+
 import { remarkIndexedBlock } from "./build";
 
 const buffer = fs.readFileSync("example.md");
 
 const main = async () => {
-  const file = await remark().use(remarkIndexedBlock).process(buffer);
-  fs.writeFileSync("eample-gen.md", file.value);
+  const ast = unified().use(remarkParse).parse(buffer);
+  const transformedAst = await unified().use(remarkIndexedBlock).run(ast);
+  console.log(transformedAst);
 };
 
 main();

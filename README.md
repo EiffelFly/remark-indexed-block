@@ -23,3 +23,5 @@ Every unique representation will be a block, take above markdown for example, `H
 - Because remark is a esm module, we have to keep an eye one that:
   - We use `tsc` to build the package and imply that we are using esm by type config in package.json `type: "module"`
   - When testing the plugin, we run the script with `node`, but node is running with CommonJS by default, you need to imply that you want to run with esm by this flag `--experimental-specifier-resolution=node`
+- unified.parse will generate a syntax tree, but does not run plugins/transformers.
+  - ref: https://github.com/unifiedjs/unified/discussions/162
