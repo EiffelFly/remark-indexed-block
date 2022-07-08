@@ -35,3 +35,18 @@ Every unique representation will be a block, take above markdown for example, `H
   const ast = unified().use(remarkParse).parse(buffer);
   const transformedAst = await unified().use(remarkIndexedBlock).run(ast);
   ```
+- You could declare custom node type
+
+  ```js
+    type IndexedBlock = {
+      type: "IndexedBlock";
+      id: string;
+      children: Content[];
+    };
+
+    declare module "mdast" {
+      interface BlockContentMap {
+        IndexedBlock: IndexedBlock;
+      }
+    }
+  ```
