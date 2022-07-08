@@ -2,6 +2,11 @@
 
 This lib will annotate every block in the markdown file with site wise unique identifier
 
+## The flow
+
+- remark-indexed-block: Generate new markdown file with indexed block syntax
+- rehype-indexed-block: Read the new markdown file and generate HTML with indexed block
+
 ## Normal Logic
 
 1. It will use the file's relative file path and uuidv5 to form a unique id. For example, if you have a file's path is `/src/data/blog/hi-i-am-indexed-block`(relative to the root of the project.) It will tokenize this path and generate id.
@@ -25,3 +30,8 @@ Every unique representation will be a block, take above markdown for example, `H
   - When testing the plugin, we run the script with `node`, but node is running with CommonJS by default, you need to imply that you want to run with esm by this flag `--experimental-specifier-resolution=node`
 - unified.parse will generate a syntax tree, but does not run plugins/transformers.
   - ref: https://github.com/unifiedjs/unified/discussions/162
+  - If you want unified to run plugin you could write something like this
+  ```js
+  const ast = unified().use(remarkParse).parse(buffer);
+  const transformedAst = await unified().use(remarkIndexedBlock).run(ast);
+  ```
