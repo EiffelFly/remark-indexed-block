@@ -4,8 +4,9 @@ This lib will annotate every block in the markdown file with site wise unique id
 
 ## The flow
 
-- remark-indexed-block: Generate new markdown file with indexed block syntax
-- rehype-indexed-block: Read the new markdown file and generate HTML with indexed block
+- remark-indexed-block: Generate new markdown with indexed block syntax
+- mdast-utils-to-hast(remark-rehype): We transfer custom node type to hast, and then transfer to HTML
+  - We could use [remark-rehype-options.handler](https://github.com/remarkjs/remark-rehype#optionshandlers) to handle custom node
 
 ## Normal Logic
 
