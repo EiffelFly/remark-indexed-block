@@ -1,8 +1,8 @@
 import { Root, Paragraph, Content } from "mdast";
 import { Plugin } from "unified";
 
-type IndexedBlock = {
-  type: "IndexedBlock";
+export type IndexedBlock = {
+  type: "indexedBlock";
   id: string;
   children: Content[];
 };
@@ -23,18 +23,15 @@ export const remarkIndexedBlock: Plugin<[], Root> = () => {
     for (const child of tree.children) {
       if (child.type !== "heading") {
         const index = tree.children.indexOf(child);
-        const indexedBlockId: Paragraph = {
-          type: "paragraph",
-          children: [
-            {
-              type: "text",
-              value: `\[#${key}-${index}]`,
-            },
-          ],
+        const indexedBlockId: IndexedBlock = {
+          type: "indexedBlock",
+          id: `${key}-${index}`,
+          children: [child],
         };
         newTree.push(indexedBlockId);
+      } else {
+        newTree.push(child);
       }
-      newTree.push(child);
     }
     tree.children = newTree;
 
