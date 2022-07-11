@@ -1,3 +1,4 @@
-import { remarkIndexedBlock } from "./lib/syntax";
+import { remarkIndexedBlock } from "./lib/remark-syntax";
+import { indexedBlock } from "./lib/rehype-syntax";
 
-export { remarkIndexedBlock };
+export { remarkIndexedBlock, indexedBlock };

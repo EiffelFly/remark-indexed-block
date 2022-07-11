@@ -2,6 +2,12 @@
 
 This lib will annotate every block in the markdown file with site wise unique identifier
 
+## The flow
+
+- remark-indexed-block: Generate new markdown with indexed block syntax
+- mdast-utils-to-hast(remark-rehype): We transfer custom node type to hast, and then transfer to HTML
+  - We could use [remark-rehype-options.handler](https://github.com/remarkjs/remark-rehype#optionshandlers) to handle custom node
+
 ## Normal Logic
 
 1. It will use the file's relative file path and uuidv5 to form a unique id. For example, if you have a file's path is `/src/data/blog/hi-i-am-indexed-block`(relative to the root of the project.) It will tokenize this path and generate id.
@@ -25,3 +31,23 @@ Every unique representation will be a block, take above markdown for example, `H
   - When testing the plugin, we run the script with `node`, but node is running with CommonJS by default, you need to imply that you want to run with esm by this flag `--experimental-specifier-resolution=node`
 - unified.parse will generate a syntax tree, but does not run plugins/transformers.
   - ref: https://github.com/unifiedjs/unified/discussions/162
+  - If you want unified to run plugin you could write something like this
+  ```js
+  const ast = unified().use(remarkParse).parse(buffer);
+  const transformedAst = await unified().use(remarkIndexedBlock).run(ast);
+  ```
+- You could declare custom node type
+
+  ```js
+    type IndexedBlock = {
+      type: "IndexedBlock";
+      id: string;
+      children: Content[];
+    };
+
+    declare module "mdast" {
+      interface BlockContentMap {
+        IndexedBlock: IndexedBlock;
+      }
+    }
+  ```
