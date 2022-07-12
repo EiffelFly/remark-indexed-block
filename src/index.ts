@@ -1,4 +1,10 @@
 import { remarkIndexedBlock } from "./lib/remarkIndexedBlock";
-import { indexedBlock } from "./lib/rehypeHandler";
+import { rehypeIndexedBlock } from "./lib/rehypeIndexedBlock";
+import { indexedBlock, indexedBlockChildren } from "./lib/rehypeHandler";
 
-export { remarkIndexedBlock, indexedBlock };
+export {
+  remarkIndexedBlock,
+  rehypeIndexedBlock,
+  indexedBlock,
+  indexedBlockChildren,
+};

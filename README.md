@@ -47,7 +47,7 @@ Every unique representation will be a block, take above markdown for example, `H
 
     declare module "mdast" {
       interface BlockContentMap {
-        IndexedBlock: IndexedBlock;
+        indexedBlock: IndexedBlock;
       }
     }
   ```
