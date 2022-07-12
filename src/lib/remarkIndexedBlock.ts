@@ -1,5 +1,6 @@
 import { Root, Content } from "mdast";
 import { Plugin } from "unified";
+import { v5 as uuidv5 } from "uuid";
 
 export type IndexedBlock = {
   type: "indexedBlock";
@@ -15,15 +16,20 @@ declare module "mdast" {
 
 type Options = {
   fileName: string;
+  domainName: string;
   idGenerator?: (index: number, fileName: string) => string;
 };
 
-const key = "st1the";
-
 export const remarkIndexedBlock: Plugin<[Options], Root> = (options) => {
   if (!options.fileName) {
-    throw Error("filename option is requried");
+    throw Error("fileName option is requried");
   }
+
+  if (!options.domainName) {
+    throw Error("domainName option is requried");
+  }
+
+  const perFileId = uuidv5(options.fileName, uuidv5.URL);
 
   return (tree) => {
     const newTree: Content[] = [];
@@ -34,7 +40,7 @@ export const remarkIndexedBlock: Plugin<[Options], Root> = (options) => {
           type: "indexedBlock",
           id: options.idGenerator
             ? options.idGenerator(index, options.fileName)
-            : `${key}-${index}`,
+            : `${perFileId.slice(0, 6)}-${index}`,
           children: [child],
         };
         newTree.push(indexedBlockId);
