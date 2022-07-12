@@ -1,4 +1,4 @@
-# Remark indexed block
+# Markdown indexed block
 
 This lib will annotate every block in the markdown file with site wise unique identifier
 
