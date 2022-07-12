@@ -8,9 +8,16 @@ export type IndexedBlock = {
   children: Content[];
 };
 
+export type IndexedBlockChildren = {
+  type: "indexedBlockChildren";
+  id: string;
+  children: Content[];
+};
+
 declare module "mdast" {
   interface BlockContentMap {
-    IndexedBlock: IndexedBlock;
+    indexedBlock: IndexedBlock;
+    indexedBlockChildren: IndexedBlockChildren;
   }
 }
 
@@ -36,14 +43,23 @@ export const remarkIndexedBlock: Plugin<[Options], Root> = (options) => {
     for (const child of tree.children) {
       if (child.type !== "heading") {
         const index = tree.children.indexOf(child);
-        const indexedBlockId: IndexedBlock = {
-          type: "indexedBlock",
-          id: options.idGenerator
-            ? options.idGenerator(index, options.fileName)
-            : `${perFileId.slice(0, 6)}-${index}`,
+        const id = options.idGenerator
+          ? options.idGenerator(index, options.fileName)
+          : `${perFileId.slice(0, 6)}-${index}`;
+
+        const indexedBlockChildren: IndexedBlockChildren = {
+          type: "indexedBlockChildren",
+          id: id,
           children: [child],
         };
-        newTree.push(indexedBlockId);
+
+        const indexedBlock: IndexedBlock = {
+          type: "indexedBlock",
+          id: id,
+          children: [indexedBlockChildren],
+        };
+
+        newTree.push(indexedBlock);
       } else {
         newTree.push(child);
       }
