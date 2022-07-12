@@ -26,9 +26,11 @@ const main = async () => {
     .use(remarkRehype, { handlers: { indexedBlock, indexedBlockChildren } })
     .run(transformedAst);
 
-  const transformedHast = unified().use(rehypeIndexedBlock).run(hast);
+  const transformedHast = await unified().use(rehypeIndexedBlock).run(hast);
 
-  const transformedHTML = unified().use(rehypeStringify).stringify(hast);
+  const transformedHTML = unified()
+    .use(rehypeStringify)
+    .stringify(transformedHast);
 
   fs.writeFileSync("example-html.html", transformedHTML);
 };
