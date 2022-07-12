@@ -10,6 +10,5 @@ export const indexedBlock: Handler = (h, node) => {
 };
 
 export const indexedBlockChildren: Handler = (h, node) => {
-  console.log(node);
   return h(node, "div", { class: "indexed-block-children" }, all(h, node));
 };
