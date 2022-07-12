@@ -2,7 +2,12 @@ import fs from "fs";
 import { unified } from "unified";
 import remarkParse from "remark-parse";
 
-import { indexedBlock, remarkIndexedBlock } from "./build";
+import {
+  indexedBlock,
+  indexedBlockChildren,
+  remarkIndexedBlock,
+  rehypeIndexedBlock,
+} from "./build";
 import remarkRehype from "remark-rehype";
 import rehypeStringify from "rehype-stringify/lib";
 
@@ -17,13 +22,13 @@ const main = async () => {
     })
     .run(ast);
 
-  const transformedHast = await unified()
-    .use(remarkRehype, { handlers: { indexedBlock } })
+  const hast = await unified()
+    .use(remarkRehype, { handlers: { indexedBlock, indexedBlockChildren } })
     .run(transformedAst);
 
-  const transformedHTML = unified()
-    .use(rehypeStringify)
-    .stringify(transformedHast);
+  const transformedHast = unified().use(rehypeIndexedBlock).run(hast);
+
+  const transformedHTML = unified().use(rehypeStringify).stringify(hast);
 
   fs.writeFileSync("example-html.html", transformedHTML);
 };
