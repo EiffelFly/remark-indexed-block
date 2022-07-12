@@ -12,8 +12,6 @@ const main = async () => {
   const ast = unified().use(remarkParse).parse(buffer);
   const transformedAst = await unified().use(remarkIndexedBlock).run(ast);
 
-  // console.log(transformedAst);
-
   const transformedHast = await unified()
     .use(remarkRehype, { handlers: { indexedBlock } })
     .run(transformedAst);
