@@ -1,4 +1,4 @@
-import { Root } from "hast";
+import { Element, Root } from "hast";
 import { Plugin } from "unified";
 import { visit } from "unist-util-visit";
 
@@ -11,7 +11,20 @@ export const rehypeIndexedBlock: Plugin<[Options], Root> = () => {
         node.tagName === "div" &&
         node.properties?.class?.toString().includes("indexed-block-container")
       ) {
-        console.log(node);
+        const idElement: Element = {
+          type: "element",
+          tagName: "p",
+          properties: {
+            class: "indexed-block-id",
+          },
+          children: [
+            {
+              type: "text",
+              value: node.properties.id?.toString() ?? "",
+            },
+          ],
+        };
+        node.children.unshift(idElement);
       }
     });
   };
