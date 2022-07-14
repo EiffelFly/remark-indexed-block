@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.1.1](https://github.com/EiffelFly/markdown-indexed-block/compare/v0.1.0...v0.1.1) (2022-07-14)
+
+
+### Bug Fixes
+
+* fix readme ([#12](https://github.com/EiffelFly/markdown-indexed-block/issues/12)) ([40ebee5](https://github.com/EiffelFly/markdown-indexed-block/commit/40ebee53f2e6f7c6eedc34db7f20f8a89d7475b1))
+
 ## [0.1.0](https://github.com/EiffelFly/markdown-indexed-block/compare/v0.0.1...v0.1.0) (2022-07-14)
 
 
