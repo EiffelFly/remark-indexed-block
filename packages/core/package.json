@@ -1,7 +1,12 @@
 {
-  "name": "@markdown-indexed-block/core",
+  "name": "markdown-indexed-block",
   "version": "0.0.1",
   "private": true,
+  "main": "build/index.js",
+  "types": "build/index.d.ts",
+  "files": [
+    "build"
+  ],
   "devDependencies": {
     "@types/hast": "^2.3.4",
     "@types/tape": "^4.13.2",

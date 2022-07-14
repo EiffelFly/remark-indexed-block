@@ -5,34 +5,9 @@
   "workspaces": [
     "packages/core"
   ],
-  "main": "build/index.js",
-  "types": "build/index.d.ts",
-  "files": [
-    "build"
-  ],
   "type": "module",
   "license": "MIT",
-  "devDependencies": {
-    "@types/hast": "^2.3.4",
-    "@types/tape": "^4.13.2",
-    "@types/uuid": "^8.3.4",
-    "mdast": "^3.0.0",
-    "mdast-util-to-hast": "^12.1.2",
-    "rehype": "^12.0.1",
-    "rehype-stringify": "^9.0.3",
-    "remark": "^14.0.2",
-    "remark-parse": "^10.0.1",
-    "remark-rehype": "^10.1.0",
-    "tape": "^5.5.3",
-    "ts-node": "^10.8.1",
-    "typescript": "^4.7.4",
-    "unist-util-visit": "^4.1.0"
-  },
   "scripts": {
     "start": "node --experimental-specifier-resolution=node"
-  },
-  "dependencies": {
-    "unified": "^10.1.2",
-    "uuid": "^8.3.2"
   }
 }
