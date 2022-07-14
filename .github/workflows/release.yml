@@ -17,3 +17,28 @@ jobs:
           command: manifest
           config-file: release/config.json
           manifest-file: release/manifest.json
+
+      - name: Checkout
+        if: ${{ steps.release.outputs.release_created }}
+        uses: actions/checkout@v3
+
+      - name: Setup node env
+        if: ${{ steps.release.outputs.release_created }}
+        uses: actions/setup-node@v3
+        with:
+          node-version: 14
+          cache: "yarn"
+
+      - name: Install dependencies
+        if: ${{ steps.release.outputs.release_created }}
+        run: yarn install --frozen-lockfile
+
+      - name: Build
+        if: ${{ steps.release.outputs.release_created }}
+        run: yarn tsc
+
+      - name: Publish
+        if: ${{ steps.release.outputs.release_created }}
+        run: npm publish
+        env:
+          NODE_AUTH_TOKEN: ${{secrets.NPM_TOKEN}}
