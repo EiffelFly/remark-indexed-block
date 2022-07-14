@@ -1,17 +1,7 @@
 {
-  "name": "remark-indexed-block",
-  "version": "0.1.2",
-  "private":"true",
-  "workspaces": [
-    "packages/core"
-  ],
-  "main": "build/index.js",
-  "types": "build/index.d.ts",
-  "files": [
-    "build"
-  ],
-  "type": "module",
-  "license": "MIT",
+  "name": "@markdown-indexed-block/core",
+  "version": "0.0.1",
+  "private": true,
   "devDependencies": {
     "@types/hast": "^2.3.4",
     "@types/tape": "^4.13.2",
