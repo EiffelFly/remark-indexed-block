@@ -1,6 +1,11 @@
 # Markdown indexed block
 
-This lib will annotate every block in the markdown file with site wise unique identifier
+This lib will annotate every block in the markdown file with site wise unique identifier and it can generate set of html based on the HTML
+
+It introduce two new remark node type
+
+- IndexedBlock
+- IndexedBlockChildren
 
 ## The flow
 
