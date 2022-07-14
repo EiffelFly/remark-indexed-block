@@ -1,5 +1,18 @@
 # Changelog
 
+## [0.2.0](https://github.com/EiffelFly/markdown-indexed-block/compare/v0.1.2...v0.2.0) (2022-07-14)
+
+
+### Features
+
+* add test action ([#17](https://github.com/EiffelFly/markdown-indexed-block/issues/17)) ([e37df2b](https://github.com/EiffelFly/markdown-indexed-block/commit/e37df2b2ea5e8e9ce78fbe10b3aeba83d65a6795))
+* rename package name ([930d391](https://github.com/EiffelFly/markdown-indexed-block/commit/930d391ba07731441de9dcd0fde6ac1c22d7825f))
+
+
+### Bug Fixes
+
+* fix context ([be30af4](https://github.com/EiffelFly/markdown-indexed-block/commit/be30af452d00129ed16d6c872565b5661ac776cf))
+
 ## [0.1.2](https://github.com/EiffelFly/markdown-indexed-block/compare/v0.1.1...v0.1.2) (2022-07-14)
 
 
