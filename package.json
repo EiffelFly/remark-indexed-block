@@ -1,5 +1,5 @@
 {
-  "name": "remark-indexed-block",
+  "name": "markdown-indexed-block",
   "version": "0.1.2",
   "main": "build/index.js",
   "types": "build/index.d.ts",
