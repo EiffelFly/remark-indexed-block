@@ -2,12 +2,12 @@
 
 This lib will annotate every block in the markdown file with site wise unique identifier and generate HTML accroding to the new markdown.
 
-It contains two elements, a remark plugin and a set of rehype handler. The remark plugin introduce two new node type:
+It contains three elements, a remark plugin, a set of rehype handler and a rehype plugin. The remark plugin introduce two new node type:
 
 - IndexedBlock
 - IndexedBlockChildren
 
-And we have two rehype handlers for these two types to generate apporiate HTML.
+After we had modified the markdown, we have two rehype handlers for these two types to generate apporiate HAST, then we have a rehype plugin to insert desired element and finally we stringify the hast to HTML.
 
 ## How to use
 
@@ -23,6 +23,7 @@ const file = await unified()
     domainName: "the site's domain name",
   })
   .use(remarkRehype, { handlers: { indexedBlock, indexedBlockChildren } })
+  .use(rehypeIndexedBlock)
   .use(rehypeStringify)
   .process(buffer);
 
