@@ -26,7 +26,9 @@ const main = async () => {
     .use(remarkRehype, { handlers: { indexedBlock, indexedBlockChildren } })
     .run(transformedAst);
 
-  const transformedHast = unified().use(rehypeIndexedBlock).run(hast);
+  const transformedHast = await unified().use(rehypeIndexedBlock).run(hast);
+
+  console.log(transformedHast);
 
   const transformedHTML = unified()
     .use(rehypeStringify)
