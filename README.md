@@ -1,21 +1,61 @@
 # Markdown indexed block
 
-This lib will annotate every block in the markdown file with site wise unique identifier and it can generate set of html based on the HTML
+This lib will annotate every block in the markdown file with site wise unique identifier and generate HTML accroding to the new markdown.
 
-It introduce two new remark node type
+It contains two elements, a remark plugin and a set of rehype handler. The remark plugin introduce two new node type:
 
 - IndexedBlock
 - IndexedBlockChildren
 
-## The flow
+And we have two rehype handlers for these two types to generate apporiate HTML.
 
-- remark-indexed-block: Generate new markdown with indexed block syntax
-- mdast-utils-to-hast(remark-rehype): We transfer custom node type to hast, and then transfer to HTML
-  - We could use [remark-rehype-options.handler](https://github.com/remarkjs/remark-rehype#optionshandlers) to handle custom node
+## How to use
 
-## Normal Logic
+### Regular flow
 
-1. It will use the file's relative file path and uuidv5 to form a unique id. For example, if you have a file's path is `/src/data/blog/hi-i-am-indexed-block`(relative to the root of the project.) It will tokenize this path and generate id.
+```js
+const buffer = fs.readFileSync("example.md");
+
+const file = await unified()
+  .use(remarkParse)
+  .use(remarkIndexedBlock, {
+    fileName: "<the target markdown fileName>",
+    domainName: "the site's domain name",
+  })
+  .use(remarkRehype, { handlers: { indexedBlock, indexedBlockChildren } })
+  .use(rehypeStringify)
+  .process(buffer);
+
+fs.writeFileSync("example-html.html", file.value);
+```
+
+### Dev flow
+
+If you want to know how remark and rehype operate at different stage, you could use this flow.
+
+```js
+const ast = unified().use(remarkParse).parse(buffer);
+const transformedAst = await unified()
+  .use(remarkIndexedBlock, {
+    fileName: "example",
+    domainName: "https://test.com",
+  })
+  .run(ast);
+
+const hast = await unified()
+  .use(remarkRehype, { handlers: { indexedBlock, indexedBlockChildren } })
+  .run(transformedAst);
+
+const transformedHast = await unified().use(rehypeIndexedBlock).run(hast);
+
+const transformedHTML = unified()
+  .use(rehypeStringify)
+  .stringify(transformedHast);
+```
+
+## How it works
+
+1. It will use the input fileName to tokenize the identifier, you can input with path like `path/to/blog/post/hi-i-am-indexed-block`
 2. It will use the first 6 character as the prefix.
 3. The suffix is depend on the order of the section.
 
@@ -25,9 +65,11 @@ It introduce two new remark node type
 ## Sub Header 1
 
 hi, I am a block!
+
+> I am a blockquote
 ```
 
-Every unique representation will be a block, take above markdown for example, `Header 1`, `Sub Header 1` and the `hi, I am a block!` are three separated blocks. The suffix will be determined by their order. If the calculated prefix is r43erf the overall index of `Header 1` will be `r43erf-1`
+Every unique representation will be a block besides from every header, take above markdown for example, the `hi, I am a block!` and `> I am a blockquote` are two separated blocks, but `# Header 1` and `## Sub Header 1` are not block. The suffix will be determined by their order. If the calculated prefix is r43erf the overall index of `hi, I am a block!` will be `r43erf-3`
 
 ## Worth notice Caveat
 
